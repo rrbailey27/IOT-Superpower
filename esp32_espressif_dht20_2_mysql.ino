@@ -1,7 +1,9 @@
 #include <WiFi.h> // include the wifi library
 #include "DHT20.h"  //we need a special ESP library for the DHT sensor
+#include <MySQL_Connection.h> // added to make the MySQL connection
+#include <MySQL_Cursor.h> // added to make the MySQL connection
 
-DHT20 dht;  //establishing an object named dht using the DHT20 library
+DHT20 dht;  //establishing an object named dht
 
 // the DHT20 uses I2C, we want to use these two pins for I2C
 int sda_pin = 6; // GPIO6 as I2C SDA
@@ -13,6 +15,7 @@ int buttonState = 0; // defining and initializing buttonState as low
 /*a variable we need for for event-driven programming 
 we only want button actions to be triggered upon button push, not the entire
 time while the button IS pushed... */
+
 int lastbuttonState = 0; 
 
 //declaring variables to store humidity and temperature
@@ -25,9 +28,25 @@ float tf;
 const char *ssid = "*****"; // "wahoo"
 const char *pwd = "*****"; // ""
 
+// AWS Server and mysql information
+// update to match your server
+IPAddress server_addr(##,##,##,##);   // server IP address - commas between values
+char user[] = "root";              // MySQL user
+char pass[] = "*****";      // enter your MySQL password here
+char db[] = "helloesp32";   // MySQL database name
+
+// establishes the parameters necessary to connect to the database
+WiFiClient client;
+MySQL_Connection conn((Client *)&client);
+
+// define string variables needed for the sensor values and the query
+char tcchar[8];
+char tfchar[8];
+char hchar[8];
+char query[128];
+
 // The below funtion connects to wifi and
 // prints out the mac address of your ESP32
-
 void wifi_init()  
 {
   // Get MAC Address:
@@ -54,7 +73,7 @@ void setup() {
 
 /* following two lines are necessary to set up I2C
 communication with the DHT20 */
-  Wire.setPins(sda_pin, scl_pin); // Set the I2C pins before begin
+   Wire.setPins(sda_pin, scl_pin); // Set the I2C pins before begin
   Wire.begin();
   dht.begin();   
 
@@ -71,8 +90,16 @@ communication with the DHT20 */
   // Call the wifi_init function to initialize the WiFi connection
   wifi_init();
 
+// Connect to  MySQL on the AWS server
+  if (conn.connect(server_addr, 3306, user, pass, db)) {
+     delay(1000);
+  } else {
+    Serial.println("Connection failed.");
+  }
+
   delay(1000);
 }
+
 
 void loop() {
 
@@ -107,6 +134,22 @@ if (buttonState == HIGH && buttonState!=lastbuttonState)
     } else {  // if read was not successful
         Serial.println("Invalid read");
     }
+
+
+  // Create INSERT statement
+  // first convert the floating numbers to strings
+  dtostrf(tc, 1, 2, tcchar);
+  dtostrf(tf, 1, 2, tfchar);
+  dtostrf(h, 1, 2, hchar);
+
+  /* then form the query and store it in the character sring "query" using sprintf
+   update with your table name and variable (i.e., column) as necessary*/
+  sprintf(query, "INSERT INTO esp32_dht20 (tempC, tempF, humidity) VALUES (%s,%s,%s)", tcchar, tfchar, hchar);
+
+// Execute INSERT statement
+  MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+  cur_mem->execute(query);
+  delete cur_mem;
 
     delay(1000);  //this delay helps "debounce" the button
   } //end the button press loop
