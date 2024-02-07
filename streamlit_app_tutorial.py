@@ -25,7 +25,7 @@ conn = st.connection('mysql', type='sql')
 # we have found that setting Time To Live (ttl) to 55 seconds works well 
 # for a project that posts new data every minute and 
 # the While True delay is 2 seconds
-# place st.cached_data right before the query
+# place st.cache_data right before the query
 # the query uses the object conn (defined above) and the method query
 
 @st.cache_data(ttl=55)
