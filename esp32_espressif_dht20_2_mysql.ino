@@ -142,7 +142,7 @@ if (buttonState == HIGH && buttonState!=lastbuttonState)
   dtostrf(tf, 1, 2, tfchar);
   dtostrf(h, 1, 2, hchar);
 
-  /* then form the query and store it in the character sring "query" using sprintf
+  /* then form the query and store it in the character string "query" using sprintf
    update with your table name and variable (i.e., column) as necessary*/
   sprintf(query, "INSERT INTO esp32_dht20 (tempC, tempF, humidity) VALUES (%s,%s,%s)", tcchar, tfchar, hchar);
 
