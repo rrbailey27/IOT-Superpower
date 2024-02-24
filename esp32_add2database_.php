@@ -1,7 +1,7 @@
 <?php
 
 /*You'll want to edit the following.  From AWS lightsail, your mysql 
-username shouuld be 'root', you can find your password by typing
+username should be 'root', you can find your password by typing
 cat bitnami_application_password 
 at the SSH prompt
 */
