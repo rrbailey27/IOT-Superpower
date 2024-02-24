@@ -101,7 +101,7 @@ these names do not need to match the names used outside of this function
 the php file receives the data "event" which is passed to 
 that file using the "?<variablename>=<value>" format following
 the name of the php file.  IF we were sending TempC of 0, 
-Teamp F of 32, ad humidity of 50, the entire string printed to the server is
+Temp F of 32, and humidity of 50, the entire string printed to the server is
  GET /example/esp32_dht20_superpower/esp32_add2database.php?temp_php_C=0&temp_php_F=32$humidity_php=50
 */
 client.print("GET " + String(directory));
