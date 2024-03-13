@@ -1,5 +1,7 @@
 <?php
 //your credentials - replace ... with your information
+//put each credential in quotes, for example "root" for the $db_user
+
 $db_user = ...;
 $db_pass = ...;
 $database = ...;
