@@ -59,8 +59,8 @@ communication with the DHT20 */
   dht.begin();   
 
 // ESP32-C3-DevKitC-02 I2C communication pins
-// SDA is GPIO8
-// SCL is  GPIO9
+// SDA we set (above) to GPIO6
+// SCL we set (above) to GPIO7
 //          +--------------+
 //  VDD ----| 1            |
 //  SDA ----| 2    DHT20   |
