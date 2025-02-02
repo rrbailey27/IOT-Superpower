@@ -10,7 +10,7 @@ int scl_pin = 7; // GPIO7 as I2C SCL
 const int buttonPin = 5; // the button is connected to GPIO5
 int buttonState = 0; // defining and initializing buttonState as low 
 
-/*a variable we need for for event-driven programming 
+/*a variable we need  for event-driven programming 
 we only want button actions to be triggered upon button push, not the entire
 time while the button IS pushed... */
 int lastbuttonState = 0; 
