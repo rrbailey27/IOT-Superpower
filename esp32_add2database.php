@@ -14,8 +14,9 @@ From your ESP32 and parse the values.
 Sending via http will be accomplished from the ESP32 by writing 
 http://ipaddressofserver/example/esp32_hellowworld/esp32_add2database.php?variable1=value1&variable2=value2
 
-The text after the ? is called a "query string." 
-The below code extracts out the value of the variables sent that are named temp_php_C, temp_php_F, and humidity_php.
+The text after the ? in the above GET request is called a "query string." 
+
+The below code extracts out the values of the variables sent in the query string that are named temp_php_C, temp_php_F, and humidity_php.
 It defines them as php variables $theTempC, $theTempF, and $theHumidity.
 
 Variables in PHP are prefaced with '$'
@@ -83,4 +84,5 @@ if ($result) {
 //don't forget to close out
 mysqli_close($connection);
 ?>
+
 
