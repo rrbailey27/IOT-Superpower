@@ -81,7 +81,7 @@ these names do not need to match the names used outside of this function
 
 // OUR FIRST order of business is connecting to the server
   printLine(); 
-// just prints a line of dots until we connect
+// printline is just a function that prints a line of dots until we connect
 
   Serial.println("Connecting to domain: " + String(host));
 
@@ -141,6 +141,8 @@ http://00.00.00.00/rodman/esp32SF_helloworld/esp32_add2database.php?event=fromsc
   Serial.println();
   Serial.println("Closing connection");
   client.stop();
+
+  // Final bracket to end the senddata function
 }
 
 
