@@ -1,4 +1,4 @@
-Files for the IOT Superpower for the Design Syntehsis class at the University of Virginia.
+Files for the IOT Superpower for the Design Synthesis class at the University of Virginia.
 
 These files are open to anyone, though - <strong>so enjoy</strong>!  
 
